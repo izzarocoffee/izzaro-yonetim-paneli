@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String?
+  address   String?
+  taxNo     String?
+  oldDebt   Float    @default(0)
+  createdAt DateTime @default(now())
+
+  invoices Invoice[]
+  payments Payment[]
+}
+
+model Invoice {
+  id Int @id @default(autoincrement())
+
+  supplierId Int
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  amount    Float
+  invoiceNo String?
+  note      String?
+
+  createdAt DateTime @default(now())
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+
+  supplierId Int
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  amount Float
+  note   String?
+
+  createdAt DateTime @default(now())
+}
+model Product {
+  id           Int      @id @default(autoincrement())
+  name         String
+  barcode      String?  @unique
+  unit         String
+  stock        Float    @default(0)
+  minStock     Float    @default(0)
+  createdAt    DateTime @default(now())
+
+  movements    StockMovement[]
+}
+
+model StockMovement {
+  id          Int      @id @default(autoincrement())
+  productId   Int
+  product      Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  type        String
+  quantity    Float
+  description String?
+  createdAt   DateTime @default(now())
+}
