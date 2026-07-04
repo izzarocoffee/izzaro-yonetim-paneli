@@ -32,6 +32,7 @@ export default function TedarikcilerPage({
 supplierCount,
 total0ldDebt,
  }: Props) {
+  console.log("TEDARIKCILER PAGE ÇALIŞTI");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
