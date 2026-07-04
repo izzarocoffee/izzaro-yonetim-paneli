@@ -32,7 +32,7 @@ export default function TedarikcilerPage({
 supplierCount,
 total0ldDebt,
  }: Props) {
-  console.log("TEDARIKCILER PAGE ÇALIŞTI");
+console.log("TEDARIKCILER PAGE ÇALIŞTI");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -83,11 +83,15 @@ total0ldDebt,
         </div>
 
         <button
-          onClick={() => setOpen(true)}
-          className="bg-yellow-400 text-black px-6 py-3 rounded-xl font-bold"
-        >
-           + Yeni Tedarikçi
-            </button>
+  onClick={() => {
+    console.log("BUTON ÇALIŞTI");
+    alert("BUTON ÇALIŞTI");
+    setOpen(true);
+  }}
+  className="bg-yellow-400 text-black px-6 py-3 rounded-xl font-bold"
+>
+  + Yeni Tedarikçi
+</button>
            </div>
            <div className="grid grid-cols-2 gap-6 mb-8">
 
