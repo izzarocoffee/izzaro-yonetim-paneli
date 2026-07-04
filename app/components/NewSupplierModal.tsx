@@ -29,6 +29,7 @@ export default function NewSupplierModal({
 
   if (!open) return null;
   async function handleSave() {
+    alert("handelSave çalıştı");
   await onSave({
     name,
     phone,
