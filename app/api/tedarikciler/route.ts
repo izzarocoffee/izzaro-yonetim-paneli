@@ -1,24 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  try {
-    const suppliers = await prisma.supplier.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    return NextResponse.json(suppliers);
-  } catch (e) {
-    console.error(e);
-    return NextResponse.json(
-      { error: "Tedarikçiler alınamadı." },
-      { status: 500 }
-    );
-  }
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -34,10 +16,14 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(supplier);
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
+
     return NextResponse.json(
-      { error: "Tedarikçi oluşturulamadı." },
+      {
+        error: e.message,
+        stack: e.stack,
+      },
       { status: 500 }
     );
   }
