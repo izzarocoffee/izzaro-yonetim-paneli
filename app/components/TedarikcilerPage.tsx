@@ -36,38 +36,42 @@ console.log("TEDARIKCILER PAGE ÇALIŞTI");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  async function saveSupplier(data: {
-    name: string;
-    phone: string;
-    address: string;
-    taxNo: string;
-    oldDebt: number;
-  }) {
-    try {
-      setLoading(true);
+ async function saveSupplier(data: {
+  name: string;
+  phone: string;
+  address: string;
+  taxNo: string;
+  oldDebt: number;
+}) {
+  alert("2");
 
-      const res = await fetch("/api/tedarikciler", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  try {
+    setLoading(true);
 
-      if (!res.ok) {
-        alert("Kayıt başarısız");
-        return;
-      }
+    const res = await fetch("/api/tedarikciler", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-      setOpen(false);
-      location.reload();
-    } catch (err) {
-      console.error(err);
-      alert("Bir hata oluştu.");
-    } finally {
-      setLoading(false);
-    }
+    alert("Status: " + res.status);
+
+    const text = await res.text();
+    alert(text);
+
+    if (!res.ok) return;
+
+    setOpen(false);
+    location.reload();
+
+  } catch (err) {
+    alert("HATA: " + String(err));
+  } finally {
+    setLoading(false);
   }
+}
 
   return (
     <main className="min-h-screen bg-[#050505] text-white p-10">
