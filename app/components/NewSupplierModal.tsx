@@ -29,7 +29,7 @@ export default function NewSupplierModal({
 
   if (!open) return null;
   async function handleSave() {
-    alert("1");
+    alert("Kayıt işlemi başlatıldı.");
 
   await onSave({
     name,
